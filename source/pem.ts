@@ -40,13 +40,13 @@ class PEMError extends Error {
 export
 class PEMObject {
 
-    public static readonly preEncapsulationBoundaryRegex : RegExp = /^-----BEGIN (?<prelabel>[A-Z# ]*)-----$/m;
-    public static readonly postEncapsulationBoundaryRegex : RegExp = /^-----END (?<postlabel>[A-Z# ]*)-----$/m;
+    public static readonly preEncapsulationBoundaryRegex : RegExp = /^-----BEGIN ([A-Z# ]*)-----$/m;
+    public static readonly postEncapsulationBoundaryRegex : RegExp = /^-----END ([A-Z# ]*)-----$/m;
     public static readonly base64LineRegex : RegExp = /^[A-Za-z0-9\+/=]+\s*$/mg;
     public static readonly pemObjectRegex : RegExp =
         new RegExp(
             PEMObject.preEncapsulationBoundaryRegex.source +
-            "\n(?:\\s*\n)*(?<base64>(?:" +
+            "\n(?:\\s*\n)*((?:" +
             PEMObject.base64LineRegex.source +
             "\n)*)?" +
             PEMObject.postEncapsulationBoundaryRegex.source,
